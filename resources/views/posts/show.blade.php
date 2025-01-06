@@ -29,12 +29,59 @@
                         <hr/>
                         <p>Wartawan : {{ $post->reporter }}</p>
                         <p>Narasumber : {{ $post->source }}</p>
+
+                        <h2>Comments</h2>
+                        @foreach($post->comments as $comment)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <p>{{ $comment->content }}</p>
+                                    <small class="text-muted">by {{ $comment->author }}</small>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <h2>Add a Comment</h2>
+                        <form action="{{ route('comments.store', $post) }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Content</label>
+                                <textarea name="content" id="content" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <input type="text" name="author" id="author" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Comment</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        //message with sweetalert
+        @if(session('success'))
+            Swal.fire({
+                icon: "success",
+                title: "BERHASIL",
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: "error",
+                title: "GAGAL!",
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+
+    </script>
 </body>
 </html>
