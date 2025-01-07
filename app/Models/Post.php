@@ -18,10 +18,15 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'reporter',
+        'user_id',
         'source',
         'picture',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function comments()
     {

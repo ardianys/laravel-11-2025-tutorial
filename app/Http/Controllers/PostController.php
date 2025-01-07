@@ -36,13 +36,9 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         // write equivalent sql query to insert data
-        //
-        $sql = "insert into posts (picture, title, content, reporter, source) values ($picture, $title, $content, $reporter, $source)";
-
-        $title = $request->title;
-
-
-        $sql = "insert into posts (picture, title, content, reporter, source) values ($picture, $title, $content, $reporter, $source)";
+        // $sql = "insert into posts (picture, title, content, reporter, source) values ($picture, $title, $content, $reporter, $source)";
+        // $title = $request->title;
+        // $sql = "insert into posts (picture, title, content, reporter, source) values ($picture, $title, $content, $reporter, $source)";
 
         // Upload picture
         $picture = $request->file('picture');
@@ -55,7 +51,7 @@ class PostController extends Controller
             'picture' => $picture->hashName(),
             'title' => $request->title,
             'content' => $request->content,
-            'reporter' => $request->reporter,
+            'user_id' => Auth::id(),
             'source' => $request->source
         ]);
 

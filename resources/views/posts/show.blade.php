@@ -27,7 +27,7 @@
                             <p>{!! $post->content !!}</p>
                         </code>
                         <hr/>
-                        <p>Wartawan : {{ $post->reporter }}</p>
+                        <p>Wartawan : {{ $post->user->name }}</p>
                         <p>Narasumber : {{ $post->source }}</p>
 
                         <h2>Comments</h2>
