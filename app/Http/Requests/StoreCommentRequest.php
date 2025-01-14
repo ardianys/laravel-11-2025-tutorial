@@ -23,7 +23,6 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'content' => 'required|min:5',
-            'author' => 'required|min:3',
         ];
     }
 }

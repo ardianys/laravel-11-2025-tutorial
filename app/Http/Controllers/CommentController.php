@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -30,7 +31,12 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request, Post $post)
     {
-        $post->comments()->create($request->validated());
+        // Merge the user_id into the validated data
+        $data = array_merge($request->validated(), ['user_id' => Auth::id()]);
+
+        // Create the comment
+        $post->comments()->create($data);
+
         return redirect()->route('posts.show', $post)->with(['success' => 'Komentar Berhasil Disimpan!']);
     }
 
